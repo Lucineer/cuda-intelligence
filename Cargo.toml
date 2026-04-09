@@ -1,0 +1,7 @@
+[package]
+name = "cuda-intelligence"
+version = "0.1.0"
+edition = "2021"
+description = "GPU-accelerated frozen intelligence toolchain for mask-locked inference chips"
+
+[dependencies]
