@@ -1,52 +1,76 @@
-# cuda-intelligence — GPU-Accelerated Frozen Intelligence Toolchain
+# cuda-intelligence
 
-Rust + CUDA rebuild of the frozen-intelligence Python toolchain. Optimized for real-time mask-locked inference chip design, verification, and yield simulation on NVIDIA GPUs.
+Rust+CUDA rebuild of frozen-intelligence — GPU yield simulation, thermal analysis, fault injection, timing verification, weight compilation, DRC
 
-## Architecture
+Part of the Cocapn fleet — a Lucineer vessel component.
 
-```
-cuda-intelligence/
-├── Cargo.toml
-├── src/
-│   ├── lib.rs          — crate root, re-exports
-│   ├── tiler.rs        — GPU yield-aware MoE swarm tiling
-│   ├── thermal.rs      — GPU thermal simulation (finite-difference)
-│   ├── fault.rs        — GPU fault simulation (stuck-at, bridging)
-│   ├── verify.rs       — GPU timing/power/signoff verification
-│   ├── compiler.rs     — GPU weight-to-metal compilation
-│   └── drc.rs          — GPU design rule checking
-└── README.md
-```
+## What It Does
 
-## Vessel Classes
+### Key Types
 
-| Class | Params | Power | Speed | Die |
-|-------|--------|-------|-------|-----|
-| Scout | 1B | <1W | 100 tok/s | 25mm² |
-| Messenger | 3B | 2.5W | 80 tok/s | 49mm² |
-| Navigator | 7B | 5W | 50 tok/s | 100mm² |
-| Captain | 13B | 10W | 30 tok/s | 196mm² |
-
-## CUDA Patterns (borrowed from cudaclaw)
-
-- **Persistent kernels** — <5μs dispatch overhead
-- **Cell agents** — `repr(C)` structs on GPU
-- **Muscle fibers** — SIMD-parallel compute paths
-- **Ramify engine** — branch divergence management
-- **SmartCRDT** — atomicCAS for concurrent state
+- `VesselSpec` — core data structure
 
 ## Quick Start
 
 ```bash
-cargo build --release
+# Clone
+git clone https://github.com/Lucineer/cuda-intelligence.git
+cd cuda-intelligence
+
+# Build
+cargo build
+
+# Run tests
 cargo test
 ```
 
-## Status
+## Usage
 
-- [x] tiler.rs — Monte Carlo yield simulation on GPU
-- [x] thermal.rs — 2D heat diffusion with thermal vias
-- [x] fault.rs — stuck-at/bridging fault injection
-- [x] verify.rs — timing analysis + power estimation
-- [x] compiler.rs — weight quantization + METL binary format
-- [x] drc.rs — parallel design rule checking
+```rust
+use cuda_intelligence::*;
+
+// See src/lib.rs for full API
+// 1 unit tests included
+```
+
+## Testing
+
+```bash
+cargo test
+```
+
+1 unit tests covering core functionality.
+
+## Architecture
+
+This crate is part of the **Cocapn Fleet** — a git-native multi-agent ecosystem.
+
+- **Category**: other
+- **Language**: Rust
+- **Dependencies**: See `Cargo.toml`
+- **Status**: Active development
+
+## Related Crates
+
+
+## Fleet Position
+
+```
+Casey (Captain)
+├── JetsonClaw1 (Lucineer realm — hardware, low-level systems, fleet infrastructure)
+├── Oracle1 (SuperInstance — lighthouse, architecture, consensus)
+└── Babel (SuperInstance — multilingual scout)
+```
+
+## Contributing
+
+This is a fleet vessel component. Fork it, improve it, push a bottle to `message-in-a-bottle/for-jetsonclaw1/`.
+
+## License
+
+MIT
+
+---
+
+*Built by JetsonClaw1 — part of the Cocapn fleet*
+*See [cocapn-fleet-readme](https://github.com/Lucineer/cocapn-fleet-readme) for the full fleet roadmap*
